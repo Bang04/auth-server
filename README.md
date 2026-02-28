@@ -1,73 +1,68 @@
-# React + TypeScript + Vite
+# Auth Service (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+프론트엔드 인증 흐름 구현 및 테스트를 위한 로그인 시스템 프로젝트
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 프로젝트 소개
+이 프로젝트는 인증(Authentication) 및 인가(Authorization) 흐름을 프론트엔드에서 먼저 설계하고 검증하기 위해 만든 로그인 시스템입니다.  
+현재는 백엔드 없이 가짜 데이터를 사용하여 로그인/로그아웃 및 인증 상태 흐름을 테스트하고 있으며, 이후 실제 서버와 JWT 기반 인증 로직을 연동할 예정입니다.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠 기술 스택
+- React
+- TypeScript
+- Vite
+- Redux (상태 관리)
+- TailwindCSS (UI 스타일링)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⚙️ 현재 구현 기능
+- 로그인 / 로그아웃 기능
+- Redux 상태 기반 인증 상태 관리
+- 가짜 토큰(mock token) 저장 및 인증 상태 판별
+- 인증 여부에 따른 페이지 접근 제어
+- 삼항 연산자를 활용한 조건부 라우팅 처리
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🧪 인증 흐름 테스트 방식
+현재 백엔드 서버 없이 테스트용 데이터를 사용하여 인증 흐름을 시뮬레이션합니다.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+동작 방식:
+1. 로그인 시 가짜 토큰 생성
+2. Redux store에 토큰 저장
+3. 토큰 존재 여부 확인
+4. 토큰이 null이 아니면 보호 페이지 접근 허용
+5. 토큰이 없으면 로그인 페이지로 이동
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚧 개발 진행 단계
+현재 단계  
+> 프론트엔드 인증 흐름 설계 및 상태 관리 구조 구축
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 📍 향후 개발 계획
+- 실제 백엔드 서버 연동
+- JWT Access Token / Refresh Token 구조 적용
+- 토큰 만료 시간 체크 로직 구현
+- 인증/인가 처리 로직 고도화
+- 데이터베이스 연동
+- OAuth 로그인 기능 추가
+
+---
+
+## 🎯 프로젝트 목표
+이 프로젝트의 목적은 단순 로그인 기능 구현이 아니라  
+**실제 서비스 수준 인증 흐름 설계 및 동작 원리 이해**입니다.
+
+---
+
+## 📂 실행 방법
+```bash
+npm install
+npm run dev
