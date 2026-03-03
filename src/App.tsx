@@ -1,28 +1,23 @@
-import { BrowserRouter, Route  ,Routes } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
-import './App.css'
-
-import { Login } from './pages/Login';
-import { MyPage } from './pages/MyPage';
-import type { RootState } from './store';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
+import type { RootState } from './app/store';
 import { useCookies } from 'react-cookie';
-function App() {
-  //const token = useSelector((state: RootState) => state.auth.token);
-   const [cookies] = useCookies(['token']);
-    console.log('cookies token : ### ',cookies.token);
-   const token = useSelector((state: RootState) => state.auth.token);
+import  {router} from './app/router';
+ import './App.css'
 
-   console.log('redux token : **** ',token);
+function App() {
+
+  const token = useSelector((state: RootState) => state.auth.token);
+
+  useEffect(() => {
+  
+  }, [token]);
+  
+
   return (
-    <BrowserRouter>
-      <Routes>
-      { token
-        ? <Route path='/my' element={<MyPage />} /> 
-        : <Route path='/login' element={<Login />} />
-      }
-      </Routes>
-    </BrowserRouter>)
+      <RouterProvider router={router} />
+    )
 }
 
 export default App

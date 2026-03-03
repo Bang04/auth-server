@@ -1,35 +1,34 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, error } from "../slice/authSlice";
-import type { RootState } from "../store";
-import { createToken, isLogin } from "../api/AuthService";
+import { login, error } from "../auth/authSlice";
+import { createToken, isLogin } from "../auth/AuthService";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-export const Login = () => {
-    const [id, setId] = useState('');
-    const [password, setPassword] = useState('');
-    
+export const LoginPage = () => {
+
+
     const dispatch = useDispatch();
     const navigator = useNavigate();
     const [cookies, setCookie] = useCookies(['token']);
-    console.log('Login cookies :',cookies);
-    /**
-     * 로그인 폼을 제출할 때 실행되는 함수
-    **/
-    const handleSubmit =  async (e: React.FormEvent<HTMLFormElement>) => {
+    const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
+   
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const result =  isLogin(id, password);
-        if(result){
+        const result = isLogin(id, password);
+        if (result) {
             const token = createToken(id, password);
-            dispatch(login({id : id, token : token})); 
+            dispatch(login({ id: id, token: token }));
             setCookie('token', token, { path: '/', expires: new Date(Date.now() + 1000 * 60 * 60 * 1) });
-           navigator('/my');
-        } else{
+            navigator('/my');
+        } else {
             alert('login falil');
-        } 
+            setId('');
+            setPassword('');
+        }
     }
-    return  (
+    return (
         <div className="flex flex-col justify-center">
             <h1 className="text-3xl font-bold text-center mb-2">Welcome Back</h1>
             <p className="text-center text-sm text-muted-foreground mb-6">
@@ -64,7 +63,7 @@ export const Login = () => {
                 </div>
 
 
-               <button
+                <button
                     type="submit"
                     className="
                         w-full py-3
@@ -74,9 +73,9 @@ export const Login = () => {
                         focus:outline-none focus:ring-4 focus:ring-emerald-300
                         shadow-lg hover:shadow-xl
                     "
-                    > Sign In
+                > Sign In
                 </button>
             </form>
         </div>
-        )
+    )
 }

@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { useCookies } from "react-cookie";
 
-export type AuthState = {
+export type userInfoState = {
     token : string | null;
     userId: string | null;
     error: any;
 }
 
-export const initialState : AuthState = { 
+export const initialState : userInfoState = { 
     token : null,
     userId :  null,
     error : null
@@ -19,8 +18,8 @@ export const authSlice = createSlice({
     initialState,
     reducers : {
         login : (state, action : PayloadAction<{id : string , token: string}>) => {
-            state.token = action.payload.id;
-            state.userId = action.payload.token;
+            state.token = action.payload.token;
+            state.userId = action.payload.id;
         },
         logout : (state) => {
             state.token = null;
