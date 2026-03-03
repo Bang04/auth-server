@@ -2,26 +2,32 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, error } from "../slice/authSlice";
 import type { RootState } from "../store";
-import { isLogin } from "../api/AuthService";
+import { createToken, isLogin } from "../api/AuthService";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 export const Login = () => {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     
-    const currentToken  = useSelector((state: RootState) => state.auth.token);
     const dispatch = useDispatch();
-
+    const navigator = useNavigate();
+    const [cookies, setCookie] = useCookies(['token']);
+    console.log('Login cookies :',cookies);
     /**
      * 로그인 폼을 제출할 때 실행되는 함수
     **/
     const handleSubmit =  async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const result = isLogin(id, password);
 
-        if(result.isLogin){
-            dispatch(login({id : result.token, token : result.token}));
-        }else{
-            dispatch(error(result.error));
-        }
+        const result =  isLogin(id, password);
+        if(result){
+            const token = createToken(id, password);
+            dispatch(login({id : id, token : token})); 
+            setCookie('token', token, { path: '/', expires: new Date(Date.now() + 1000 * 60 * 60 * 1) });
+           navigator('/my');
+        } else{
+            alert('login falil');
+        } 
     }
     return  (
         <div className="flex flex-col justify-center">

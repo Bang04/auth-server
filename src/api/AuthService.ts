@@ -1,9 +1,12 @@
 
 export const isLogin = (id:string, password : string) => {
-    if(id === 'test' && password === '1234'){
-       return {isLogin : true , token : createToken(id, password)};
+    try{
+        if(id === 'test' && password === '1234'){
+            return true;
+        }
+    }catch(e){
+        return false;
     }
-    return {error : 'login fail'};
 }
 
 

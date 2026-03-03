@@ -1,12 +1,25 @@
 import { logout } from "../slice/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import type { RootState } from "../store";
+import { useCookies } from "react-cookie";
 
 export const MyPage = () => {
    
      const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [cookies] = useCookies(['token']);
 
+    const token = useSelector((state: RootState) => state.auth.token);
+  
+    if(cookies.token === null){
+         console.log('loggout 여기? ');
+        navigate('/login');
+    }
     const handlerLoggout = () => {
+        console.log('loggout $$ ');
         dispatch(logout());
+        navigate('/login');
     }
     return (
         <div>

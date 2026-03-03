@@ -5,11 +5,9 @@ import App from './App.tsx'
 import { Provider } from 'react-redux'
 import { store } from './store'
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Provider store={store}>
+      <Provider store={store}>
     <CookiesProvider>
       <App />
     </CookiesProvider>
-    </Provider>
-  </StrictMode>,
+    </Provider>,
 )

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
+import { useCookies } from "react-cookie";
 
 export type AuthState = {
     token : string | null;
