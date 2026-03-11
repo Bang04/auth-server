@@ -1,20 +1,22 @@
 import { logout } from "../auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../app/store";
+import { persistor, type RootState } from "../app/store";
 import { useCookies } from "react-cookie";
 export const MyPage = () => {
-
-    const dispatch = useDispatch();
+   const dispatch = useDispatch();
     //const navigate = useNavigate();
+
+    localStorage.getItem("persist:auth")
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
-    const userId = useSelector((state: RootState) => state.auth.userId);
+    const userId = useSelector((state: RootState) => state.auth.user);
     if (cookies.token === null) {
         // navigate('/login');
     }
     const handlerLogout = () => {
         removeCookie('token');
         dispatch(logout());
+        persistor.purge();
     }
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">

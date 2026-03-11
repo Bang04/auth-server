@@ -5,16 +5,16 @@ export type AuthState = {
     error: any;         // 에러
 }
 
-export type loginInfo = { // mock data 
-    id : string | null,        // 사용자 아이디
-    password : string  | null   // 사용자 비밀번호
-}
+// export type loginInfo = { // mock data 
+//     id : string | null,        // 사용자 아이디
+//     password : string  | null   // 사용자 비밀번호
+// }
 
-export type UserToken = {
-    userID : string,            //아이디
-    role : string,              //권한
-    exp : number                //만료시간
-}
+// export type UserToken = {
+//     userID : string,            //아이디
+//     role : string,              //권한
+//     exp : number                //만료시간
+// }
 
 export type authAction = 
     { type: "createToken"; payload: string } |

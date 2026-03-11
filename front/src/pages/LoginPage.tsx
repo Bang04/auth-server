@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, error } from "../auth/authSlice";
-import { createToken, isLogin } from "../auth/AuthService";
+import { createToken, isLogin } from "../auth/authService";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 export const LoginPage = () => {
@@ -36,7 +36,7 @@ export const LoginPage = () => {
             </p>
 
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} name="login" className="space-y-4">
                 <div className="space-y-1">
                     <label className="text-sm font-medium">ID</label>
                     <input
@@ -64,6 +64,7 @@ export const LoginPage = () => {
 
 
                 <button
+                    aria-label="login"
                     type="submit"
                     className="
                         w-full py-3

@@ -5,13 +5,22 @@ import type { RootState } from './app/store';
 import { useCookies } from 'react-cookie';
 import  {router} from './app/router';
  import './App.css'
+import { logout } from './auth/authSlice';
 
 function App() {
-
+const dispatch = useDispatch();
   const token = useSelector((state: RootState) => state.auth.token);
 
+
+  //임시 토큰 값 만료시간 체크해서 로그아웃하기
   useEffect(() => {
-  
+    // if(token){
+    //   const expired = localStorage.getItem('token')[1];
+    //   const isExpired = new Date(expired) < new Date();
+    //   if(expired){
+    //     dispatch(logout());
+    //   }
+    // }
   }, [token]);
   
 
@@ -21,3 +30,4 @@ function App() {
 }
 
 export default App
+
