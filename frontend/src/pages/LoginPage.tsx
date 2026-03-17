@@ -12,20 +12,24 @@ export const LoginPage = () => {
     const [cookies, setCookie] = useCookies(['token']);
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-   
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const result = isLogin(id, password);
-        if (result) {
-            const token = createToken(id, password);
-            dispatch(login({ id: id, token: token }));
-            setCookie('token', token, { path: '/', expires: new Date(Date.now() + 1000 * 60 * 60 * 1) });
-            navigator('/my');
-        } else {
-            alert('login falil');
-            setId('');
-            setPassword('');
+        try {
+            const data = await isLogin(id, password);
+            if (data) {
+                const token = createToken(id, password);
+                dispatch(login({ id: id, token: token }));
+                setCookie('token', token, { path: '/', expires: new Date(Date.now() + 1000 * 60 * 60 * 1) });
+                navigator('/my');
+            } else {
+                alert('login falil');
+                setId('');
+                setPassword('');
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
     return (
