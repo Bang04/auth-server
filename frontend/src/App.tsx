@@ -1,17 +1,15 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import type { RootState } from './app/store';
-import { useCookies } from 'react-cookie';
 import  {router} from './app/router';
  import './App.css'
-import { logout } from './auth/authSlice';
 
 function App() {
-const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const token = useSelector((state: RootState) => state.auth.token);
 
-
+  console.log('token : ',token);
   //임시 토큰 값 만료시간 체크해서 로그아웃하기
   useEffect(() => {
     // if(token){

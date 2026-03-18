@@ -1,5 +1,6 @@
 export const isLogin = async (id: string, password: string) => {
   try {
+    console.log('API 호출 시작');
     const res = await fetch("http://localhost:3000/auth/login", {
       method: "POST",
       headers: {
@@ -16,7 +17,7 @@ export const isLogin = async (id: string, password: string) => {
       throw new Error(res.statusText+' : Login fail');
     }
 
-    return res;
+    return res.json();
   } catch (e: any) {
     console.log("auth api error :  ", e.getMessage);
   } finally {
