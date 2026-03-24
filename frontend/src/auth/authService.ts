@@ -1,42 +1,24 @@
 export const isLogin = async (id: string, password: string) => {
   try {
-    console.log('API 호출 시작');
     const res = await fetch("http://localhost:3000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-         id,
-        password,
-      }),
+      credentials: "include", //쿠키 보냄
+      body: JSON.stringify({id, password, role : 'admin'}),
     });
 
-    console.log(res);
     if(!res.ok){
       throw new Error(res.statusText+' : Login fail');
     }
 
-    return res.json();
+    return await res.json();
+
   } catch (e: any) {
-    console.log("auth api error :  ", e.getMessage);
+    console.log("auth api error :  ", e.message);
+
   } finally {
+    console.log('API 종료');
   }
-};
-
-export const createToken = (id: string, password: string) => {
-  const header = { alg: "HS256" };
-  const payload = { id: id, password: password };
-  //const base64EncodeHeader = Buffer.from(JSON.stringify(header)).toString('base64');
-  // const base64EncodePayload = Buffer.from(JSON.stringify(payload)).toString('base64');
-  const encodeToken = header + "." + payload + ".mock-signature";
-  console.log("encodeToken : ", encodeToken);
-  return encodeToken;
-};
-
-export const verifyToken = (encodeToken: string) => {
-  // const decodedToken = Buffer.from(JSON.stringify(encodeToken), 'base64').toString('utf8');
-  const decodedToken = encodeToken;
-  console.log("decodedToken : ", decodedToken);
-  return decodedToken;
 };

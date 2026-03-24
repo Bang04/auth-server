@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, error } from "../auth/authSlice";
-import { createToken, isLogin } from "../auth/authService";
+import { isLogin } from "../auth/authService";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 export const LoginPage = () => {
@@ -20,9 +20,9 @@ export const LoginPage = () => {
         try {
             const data = await isLogin(id, password);
             if (data) {
-                const token = createToken(id, password);
-                dispatch(login({ id: id, token: token }));
-                setCookie('token', token, { path: '/', expires: new Date(Date.now() + 1000  * 60) }); //1분
+               // const token = data.token;
+               // dispatch(login({ id: id, token: token }));
+                //setCookie('token', token, { path: '/', expires: new Date(Date.now() + 1000  * 60) }); //1분
                 navigator('/my');
             } else {
                 alert('아이디 또는 비밀번호가 올바르지 않습니다.');

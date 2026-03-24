@@ -1,14 +1,19 @@
-import { Controller, Get , Post, Body, Query } from '@nestjs/common';
+import { Controller, Get , Post, Body, Query, UseGuards ,Request,Response } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { LoginGuard } from './auth.guard';
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService : AuthService){}
+    
+    @UseGuards(LoginGuard)
     @Post('login')
-    login(@Body() body: any) {
-        return this.authService.isLogin(body.id, body.password);
-    }
+    login( @Response() res : any,  @Body() body: any) {
+        const token = this.authService.isLogin(body.id, body.password);
+        res.cookies('token', token , {
+            httpOnly : true,
+            maxAge : 1000 * 10 //10초
+        });
 
-    getAccessToekn(@Body() body: any){
-        return this.authService.getAccessToken(body.id,'admin');
+        return res.send({result : 'success'})
     }
 }
