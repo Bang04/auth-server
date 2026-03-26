@@ -7,9 +7,8 @@ import  {router} from './app/router';
 
 function App() {
   //const dispatch = useDispatch();
-  const token = useSelector((state: RootState) => state.auth.token);
-
-  console.log('token : ',token);
+   const token = useSelector((state: RootState) => state.auth.token);
+  // console.log('token : ',token);
   //임시 토큰 값 만료시간 체크해서 로그아웃하기
   useEffect(() => {
     // if(token){

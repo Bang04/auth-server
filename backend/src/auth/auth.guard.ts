@@ -8,9 +8,9 @@ export class LoginGuard implements CanActivate{
     async canActivate(context : any) : Promise<boolean> {
         const request = context.switchToHttp().getRequest();
 
-        if(request.cookies['token']){
-            return true;
-        }
+        // if(request.cookie?.token){
+        //     return true;
+        // }
 
 
         if(!request.body.id || !request.body.passwrod){

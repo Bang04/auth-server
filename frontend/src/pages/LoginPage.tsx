@@ -8,7 +8,7 @@ export const LoginPage = () => {
 
 
     const dispatch = useDispatch();
-    const navigator = useNavigate();
+    const navigate = useNavigate();
     const [cookies, setCookie] = useCookies(['token']);
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
@@ -19,11 +19,17 @@ export const LoginPage = () => {
 
         try {
             const data = await isLogin(id, password);
-            if (data) {
+            console.log(data);
+            if (data.result === 'success') {
+                console.log("응답 받아왔고 성공!! my 이동하기 전");
                // const token = data.token;
                // dispatch(login({ id: id, token: token }));
                 //setCookie('token', token, { path: '/', expires: new Date(Date.now() + 1000  * 60) }); //1분
-                navigator('/my');
+                const token = data.token;
+                dispatch(login({ id, token })); // 🔥 이거 필수
+                navigate('/my');
+
+               
             } else {
                 alert('아이디 또는 비밀번호가 올바르지 않습니다.');
                 setId('');

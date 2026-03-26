@@ -35,7 +35,7 @@ describe("LoginPage", () => {
         );
 
         await userEvent.type(
-            screen.getByPlaceholderText("••••••••"),
+            screen.getByPlaceholderText("•••••"),
             "1234"
         );
 
