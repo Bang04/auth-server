@@ -6,7 +6,7 @@ export const isLogin = async (id: string, password: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
+      credentials: "include", //쿠키 사용시 무조건 추가
       body: JSON.stringify({ id, password, role: "admin" }),
     });
 
@@ -17,6 +17,7 @@ export const isLogin = async (id: string, password: string) => {
     }
     console.log("3"); 
     return res.json();
+    
   } catch (e) {
     console.error("Login API error:", e);
     throw e;

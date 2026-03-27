@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export type userInfoState = {
-    token : string | null;
+    isLogin : boolean;
     user: string | null;
     error: any;
 }
 
 export const initialState : userInfoState = { 
-    token : null,
+    isLogin : false,
     user :  null,
     error : null
 }
@@ -18,16 +18,17 @@ export const authSlice = createSlice({
     initialState,
     reducers : {
         login : (state, action : PayloadAction<{id : string , token: string}>) => {
-            state.token = action.payload.token;
+          console.log(" authslice login : ",action.payload);
+            state.isLogin = true;
             state.user = action.payload.id;
         },
         logout : (state) => {
-            state.token = null;
+            state.isLogin = false;
             state.user = null;
         },
         error : (state, action) => {
             state.error = action.payload;
-        }
+        },
     }
 
 });

@@ -11,12 +11,21 @@ export const router = createBrowserRouter([
         path: "/login",
         element: <LoginPage />,
     },
-    {
+     {
         path: "/my",
         element: (
-            <ProtectedRoute>
+             <ProtectedRoute>
                 <MyPage />
-            </ProtectedRoute>
+             </ProtectedRoute>
+             
         ),
     },
 ]);
+    // {
+    //     path: "/my",
+    //     element: (
+    //         <ProtectedRoute>
+    //             <MyPage />
+    //         </ProtectedRoute>
+    //     ),
+    // },

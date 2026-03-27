@@ -19,13 +19,14 @@ export const LoginPage = () => {
 
         try {
             const data = await isLogin(id, password);
-            console.log(data);
+            console.log('login Page data ', data);
             if (data.result === 'success') {
                 console.log("응답 받아왔고 성공!! my 이동하기 전");
                // const token = data.token;
                // dispatch(login({ id: id, token: token }));
                 //setCookie('token', token, { path: '/', expires: new Date(Date.now() + 1000  * 60) }); //1분
                 const token = data.token;
+                console.log('login Page Token get : '+ token);
                 dispatch(login({ id, token })); // 🔥 이거 필수
                 navigate('/my');
 
