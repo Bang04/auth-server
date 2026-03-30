@@ -17,4 +17,11 @@ export class AuthService {
       return false
     }
   }
+
+
+  async verify(token : string){
+    const user  = await this.jwtService.verify(token);
+
+    return user;
+  }
 }

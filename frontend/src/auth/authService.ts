@@ -13,7 +13,8 @@ export const isLogin = async (id: string, password: string) => {
     console.log("2"); 
     
     if (!res.ok) {
-      throw new Error(res.statusText + " : Login fail");
+      console.log(res.statusText + " : Login fail");
+      return "fail";
     }
     console.log("3"); 
     return res.json();

@@ -2,8 +2,42 @@ import { logout } from "../auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { persistor, type RootState } from "../app/store";
 import { useCookies } from "react-cookie";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export const MyPage = () => {
-   const dispatch = useDispatch();
+    const navigator = useNavigate();
+    const [userId2 , setUserId] = useState('');
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await fetch('http://localhost:3000/auth/my', {
+                credentials: 'include',
+            });
+
+            if(!res.ok){
+                console.log(res.statusText + ' : 토큰 없음');
+                  navigator('/login');
+                  return;
+            }
+
+           // const data = await res.json();
+           // setUserId(data.id);
+        };
+
+        fetchData();
+    }, [navigator]);
+
+
+
+
+
+
+
+
+
+
+
+    const dispatch = useDispatch();
     //const navigate = useNavigate();
 
     localStorage.getItem("persist:auth")

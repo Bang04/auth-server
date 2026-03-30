@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, error } from "../auth/authSlice";
+import { login } from "../auth/authSlice";
 import { isLogin } from "../auth/authService";
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+//import { useCookies } from "react-cookie";
 export const LoginPage = () => {
 
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [cookies, setCookie] = useCookies(['token']);
+   // const [cookies, setCookie] = useCookies(['token']);
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
 
@@ -22,12 +22,7 @@ export const LoginPage = () => {
             console.log('login Page data ', data);
             if (data.result === 'success') {
                 console.log("응답 받아왔고 성공!! my 이동하기 전");
-               // const token = data.token;
-               // dispatch(login({ id: id, token: token }));
-                //setCookie('token', token, { path: '/', expires: new Date(Date.now() + 1000  * 60) }); //1분
-                const token = data.token;
-                console.log('login Page Token get : '+ token);
-                dispatch(login({ id, token })); // 🔥 이거 필수
+                dispatch(login({id :id})); // 🔥 이거 필수
                 navigate('/my');
 
                
@@ -79,14 +74,14 @@ export const LoginPage = () => {
                         aria-label="login"
                         type="submit"
                         className="
-          w-full py-3
-          rounded-xl
-          font-bold text-lg tracking-wide text-black
-          bg-emerald-500
-          hover:bg-emerald-700
-          focus:outline-none focus:ring-4 focus:ring-emerald-300
-          shadow-lg hover:shadow-xl
-        "
+                                w-full py-3
+                                rounded-xl
+                                font-bold text-lg tracking-wide text-black
+                                bg-emerald-500
+                                hover:bg-emerald-700
+                                focus:outline-none focus:ring-4 focus:ring-emerald-300
+                                shadow-lg hover:shadow-xl
+                                "
                     >
                         Sign In
                     </button>
