@@ -2,7 +2,7 @@
 import { createRoot } from 'react-dom/client'
 import { CookiesProvider } from 'react-cookie'
 import { Provider } from 'react-redux'
-import { persistor, store } from './app/store.ts'
+import { persistor, store } from './store/authStore.ts'
 import { PersistGate } from 'redux-persist/integration/react'
 import App from './App.tsx'
 

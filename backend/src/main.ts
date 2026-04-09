@@ -6,6 +6,8 @@ import cors from 'cors';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //app.enableCors(); //포트 다르면 무조건 CORS 필요
+
+  app.use(cookieParser()); //nestjs 에서 req.cookies 읽으려면 필수
   app.use(cors({
     origin : 'http://localhost:5173',
     credentials : true, //쿠키 쓸 경우 

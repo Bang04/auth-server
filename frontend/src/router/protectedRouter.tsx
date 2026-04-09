@@ -1,6 +1,6 @@
 import { type JSX } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../app/store';
+import type { RootState } from '../store/authStore';
 import { Navigate } from 'react-router-dom';
 
 export const ProtectedRoute = ({ children} : {children : JSX.Element}) => {

@@ -8,18 +8,12 @@ export class LoginGuard implements CanActivate{
     async canActivate(context : any) : Promise<boolean> {
         console.log('guard 실행됨');
         const request = context.switchToHttp().getRequest();
-        const token = request.cookies.token;
-console.log('cookies:', request.cookies);
+       // const token = request.cookies.token;
+        const headers = request.headers;
+        const token = headers['cookie']?.split(';')[0]?.split('=')[1];
+                console.log('Gurad token : ',token);
         if(!token){
-            return false;
-        }
-
-        try{
-            const user  = await this.authService.verify(token);
-            request.user = user;
-            
-        }catch(e){
-            throw new UnauthorizedException('toekn check fail');
+           throw new UnauthorizedException();
         }
         return true;
     }
